@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.gmail.ivan.synopsis.R;
 import com.gmail.ivan.synopsis.mvp.contracts.BaseContract;
 import com.gmail.ivan.synopsis.mvp.presenter.BasePresenter;
 
