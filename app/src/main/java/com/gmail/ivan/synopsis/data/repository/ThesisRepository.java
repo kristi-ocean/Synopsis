@@ -1,6 +1,5 @@
 package com.gmail.ivan.synopsis.data.repository;
 
-import com.gmail.ivan.synopsis.data.entity.Theme;
 import com.gmail.ivan.synopsis.data.entity.Thesis;
 
 import java.util.List;

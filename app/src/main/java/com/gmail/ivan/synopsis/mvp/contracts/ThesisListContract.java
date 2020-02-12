@@ -1,11 +1,11 @@
 package com.gmail.ivan.synopsis.mvp.contracts;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.gmail.ivan.synopsis.data.entity.Thesis;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface ThesisListContract {
 

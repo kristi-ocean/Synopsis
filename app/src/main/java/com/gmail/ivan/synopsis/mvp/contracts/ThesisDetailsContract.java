@@ -1,8 +1,8 @@
 package com.gmail.ivan.synopsis.mvp.contracts;
 
-import androidx.annotation.NonNull;
-
 import com.gmail.ivan.synopsis.data.entity.Thesis;
+
+import androidx.annotation.NonNull;
 
 public interface ThesisDetailsContract {
 

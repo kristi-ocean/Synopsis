@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Synopsis</string>
+
+    <!-- Theme List Strings -->
+    <string name="empty_list">There is no themes</string>
+    <string name="add_theme">Add Theme</string>
+    <string name="new_theme_title">Enter new theme title:</string>
+    <string name="empty_theme_title">Empty theme title!</string>
+    <plurals name="thesis_count_string">
+        <item quantity="zero">There is no theses.</item>
+        <item quantity="one">One thesis.</item>
+        <item quantity="many">%d theses.</item>
+        <item quantity="other">There is no theses.</item>
+    </plurals>
 </resources>
