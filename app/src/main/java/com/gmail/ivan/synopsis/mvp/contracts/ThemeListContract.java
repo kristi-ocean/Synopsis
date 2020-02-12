@@ -1,11 +1,11 @@
 package com.gmail.ivan.synopsis.mvp.contracts;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.gmail.ivan.synopsis.data.entity.Theme;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface ThemeListContract {
 
@@ -14,15 +14,11 @@ public interface ThemeListContract {
         void showThemeList(@Nullable List<Theme> themeList);
 
         void showEmptyList();
-
-        void invalidateThemeList();
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
 
         void loadThemeList();
-
-        void showThemeList();
 
         void newTheme();
 
@@ -34,5 +30,7 @@ public interface ThemeListContract {
     interface Router extends BaseContract.Router {
 
         void openTheme(@NonNull Theme theme);
+
+        void openNewTheme();
     }
 }

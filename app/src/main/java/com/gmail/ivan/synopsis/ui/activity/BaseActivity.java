@@ -1,11 +1,5 @@
 package com.gmail.ivan.synopsis.ui.activity;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,6 +7,12 @@ import com.gmail.ivan.synopsis.mvp.contracts.BaseContract;
 import com.gmail.ivan.synopsis.mvp.presenter.BasePresenter;
 
 import java.util.Objects;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseActivity<P extends BasePresenter>
         extends AppCompatActivity

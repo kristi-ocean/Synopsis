@@ -15,10 +15,10 @@ public class AppDataBaseSingleton {
     private final AppDataBase dataBase;
 
     private AppDataBaseSingleton(Context context) {
-        dataBase = Room.databaseBuilder(context, AppDataBase.class, "app_data").build();
+        dataBase = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, "app_data").build();
     }
 
-    public AppDataBaseSingleton get(Context context){
+    public static AppDataBaseSingleton get(Context context){
         if(appDBSingletone == null){
             appDBSingletone = new AppDataBaseSingleton(context);
         }

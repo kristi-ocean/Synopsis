@@ -1,19 +1,22 @@
 package com.gmail.ivan.synopsis.ui.adapter;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseRecyclerAdapter<E> extends RecyclerView.Adapter<BaseViewHolder<E>> {
 
     @NonNull
-    private List<E> entityList = new ArrayList<>();
+    private final List<E> entityList = new ArrayList<>();
 
-    public void setEntityListData(List<E> entityList){
+    public void setEntityListData(List<E> entityList) {
         this.entityList.clear();
         this.entityList.addAll(entityList);
         notifyDataSetChanged();
@@ -22,11 +25,17 @@ public abstract class BaseRecyclerAdapter<E> extends RecyclerView.Adapter<BaseVi
     @NonNull
     @Override
     public BaseViewHolder<E> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return createHolder();
+        View view = LayoutInflater.from(parent.getContext())
+                                  .inflate(getLayoutID(), parent, false);
+
+        return createHolder(view);
     }
 
+    @LayoutRes
+    protected abstract int getLayoutID();
+
     @NonNull
-    protected abstract BaseViewHolder<E> createHolder();
+    protected abstract BaseViewHolder<E> createHolder(@NonNull View view);
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder<E> holder, int position) {
