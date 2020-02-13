@@ -42,8 +42,7 @@ public abstract class BaseActivity<P extends BasePresenter>
     @LayoutRes
     public abstract int getLayoutRes();
 
-    @StringRes
-    public abstract int getToolbarTitle();
+    public abstract String getToolbarTitle();
 
     @Override
     protected void onStart() {
