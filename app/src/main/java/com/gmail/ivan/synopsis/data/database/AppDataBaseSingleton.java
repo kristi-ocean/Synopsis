@@ -15,7 +15,7 @@ public class AppDataBaseSingleton {
     private final AppDataBase dataBase;
 
     private AppDataBaseSingleton(Context context) {
-        dataBase = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, "app_data").build();
+        dataBase = Room.databaseBuilder(context, AppDataBase.class, "app_data").build();
     }
 
     public static AppDataBaseSingleton get(Context context){

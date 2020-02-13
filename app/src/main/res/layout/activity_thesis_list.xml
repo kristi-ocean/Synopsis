@@ -6,31 +6,33 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/theme_recycler"
+        android:id="@+id/thesis_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-63dp"
-        tools:layout_editor_absoluteY="-286dp" />
+        tools:layout_editor_absoluteX="-182dp"
+        tools:layout_editor_absoluteY="-174dp" />
 
     <ProgressBar
-        android:id="@+id/theme_progress_bar"
+        android:id="@+id/thesis_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_recycler"
+        app:layout_constraintBottom_toBottomOf="@+id/thesis_recycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/theme_recycler"
-        app:layout_constraintTop_toTopOf="@+id/theme_recycler" />
+        app:layout_constraintStart_toStartOf="@+id/thesis_recycler"
+        app:layout_constraintTop_toTopOf="@+id/thesis_recycler" />
 
     <TextView
-        android:id="@+id/empty_themelist_text"
+        android:id="@+id/empty_thesislist_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_list"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_recycler"
-        app:layout_constraintEnd_toEndOf="@+id/theme_recycler"
-        app:layout_constraintStart_toStartOf="@+id/theme_recycler"
-        app:layout_constraintTop_toTopOf="@+id/theme_recycler" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/thesis_recycler"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.459" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

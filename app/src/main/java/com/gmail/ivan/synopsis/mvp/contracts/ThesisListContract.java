@@ -20,8 +20,6 @@ public interface ThesisListContract {
 
         void loadThesisList();
 
-        void showThesisList();
-
         void newThesis();
 
         void openThesis(@NonNull Thesis thesis);

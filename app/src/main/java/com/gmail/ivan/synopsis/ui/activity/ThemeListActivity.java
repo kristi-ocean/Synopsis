@@ -56,9 +56,9 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.theme_progress_bar);
 
-        emptyListText = findViewById(R.id.empty_list_text);
+        emptyListText = findViewById(R.id.empty_themelist_text);
 
         recyclerView = findViewById(R.id.theme_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -97,8 +97,8 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
     }
 
     @Override
-    public int getToolbarTitle() {
-        return R.string.app_name;
+    public String getToolbarTitle() {
+        return getString(R.string.app_name);
     }
 
     @Override

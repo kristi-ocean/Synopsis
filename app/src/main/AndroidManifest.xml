@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.ThesisListActivity"/>
+        <activity android:name=".ui.activity.ThesisListActivity"
+            android:parentActivityName=".ui.activity.ThemeListActivity"/>
     </application>
 
 </manifest>

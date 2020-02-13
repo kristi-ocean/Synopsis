@@ -24,7 +24,7 @@ public class ThemeListRouter implements ThemeListContract.Router {
 
     @Override
     public void openTheme(@NonNull Theme theme) {
-        Intent intent = new Intent(activity, ThesisListActivity.class);
+        Intent intent = ThesisListActivity.newIntent(activity, theme.getThemeName());
         activity.startActivity(intent);
     }
 
