@@ -12,6 +12,7 @@ import com.gmail.ivan.synopsis.data.database.AppDataBaseSingleton;
 import com.gmail.ivan.synopsis.data.entity.Theme;
 import com.gmail.ivan.synopsis.mvp.contracts.ThemeListContract;
 import com.gmail.ivan.synopsis.mvp.presenter.ThemeListPresenter;
+import com.gmail.ivan.synopsis.ui.adapter.SwipeToDeleteCallback;
 import com.gmail.ivan.synopsis.ui.adapter.ThemeRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.fragment.BaseDialog;
 import com.gmail.ivan.synopsis.ui.fragment.NewThemeDialog;
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +64,8 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerAdapter = new ThemeRecyclerAdapter(getPresenter());
         recyclerView.setAdapter(recyclerAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
