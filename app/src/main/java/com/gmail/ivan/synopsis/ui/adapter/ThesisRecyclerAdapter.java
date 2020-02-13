@@ -30,6 +30,7 @@ public class ThesisRecyclerAdapter extends BaseRecyclerAdapter<Thesis> {
 
     @Override
     public void deleteItem(int position) {
-        // TODO: 2/13/2020 will be created in another task
+        presenter.deleteThesis(getItem(position));
+        presenter.loadThesisList();
     }
 }
