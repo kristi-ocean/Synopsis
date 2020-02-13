@@ -8,22 +8,40 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Thesis {
 
+    @PrimaryKey
+    @NonNull
+    private final String id;
+
     @NonNull
     private String themeName;
 
     @NonNull
-    @PrimaryKey
     private String thesisName;
 
     @NonNull
     private String thesisDescription;
 
-    public Thesis(@NonNull String themeName,
+    @Ignore
+    public Thesis(@NonNull String id, @NonNull String themeName) {
+        this.id = id;
+        this.themeName = themeName;
+        thesisName = "New thesis";
+        thesisDescription = "";
+    }
+
+    public Thesis(@NonNull String id,
+                  @NonNull String themeName,
                   @NonNull String thesisName,
                   @NonNull String thesisDescription) {
+        this.id = id;
         this.themeName = themeName;
         this.thesisName = thesisName;
         this.thesisDescription = thesisDescription;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
     }
 
     @NonNull

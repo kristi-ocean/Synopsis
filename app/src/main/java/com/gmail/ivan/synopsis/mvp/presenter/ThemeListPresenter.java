@@ -97,6 +97,7 @@ public class ThemeListPresenter
                 theme.setThesisCount(dataBase.thesisRepository()
                                              .getThesisList(theme.getThemeName())
                                              .size());
+                Log.d(TAG, "doInBackground: " + theme.getThesisCount());
             }
 
             return themeList;
