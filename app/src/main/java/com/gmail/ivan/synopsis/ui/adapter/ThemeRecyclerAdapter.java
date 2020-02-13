@@ -27,4 +27,10 @@ public class ThemeRecyclerAdapter extends BaseRecyclerAdapter<Theme> {
     protected BaseViewHolder<Theme> createHolder(@NonNull View view) {
         return new ThemeViewHolder(view, presenter);
     }
+
+    @Override
+    public void deleteItem(int position) {
+        presenter.delete(getItem(position));
+        presenter.loadThemeList();
+    }
 }

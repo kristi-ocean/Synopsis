@@ -60,7 +60,23 @@ public class ThemeListPresenter
 
     @Override
     public void delete(@NonNull Theme theme) {
-        // TODO: 2/12/2020 Will Be created in another task
+        new DeleteThemeTask(dataBase).execute(theme);
+    }
+
+    private static class DeleteThemeTask extends AsyncTask<Theme, Void, Void>{
+
+        @NonNull
+        private final AppDataBase dataBase;
+
+        public DeleteThemeTask(@NonNull AppDataBase dataBase) {
+            this.dataBase = dataBase;
+        }
+
+        @Override
+        protected Void doInBackground(Theme... themes) {
+            dataBase.themeRepository().deleteTheme(themes[0]);
+            return null;
+        }
     }
 
     private static class LoadThemeListTask extends AsyncTask<Void, Void, List<Theme>> {
