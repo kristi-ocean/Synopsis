@@ -9,6 +9,7 @@ import com.gmail.ivan.synopsis.mvp.contracts.ThesisListContract;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
@@ -55,17 +56,37 @@ public class ThesisListPresenter
 
     @Override
     public void newThesis() {
-        // TODO: 2/12/2020 will be created in another task
+        Thesis thesis = new Thesis(UUID.randomUUID().toString(), themeName);
+
+        new AddThesisListTask(dataBase).execute(thesis);
+
+        getRouter().openThesis(thesis);
     }
 
     @Override
     public void openThesis(@NonNull Thesis thesis) {
-        // TODO: 2/12/2020 will be created in another task
+        getRouter().openThesis(thesis);
     }
 
     @Override
     public void deleteThesis(@NonNull Thesis thesis) {
         // TODO: 2/12/2020 will be created in another task
+    }
+
+    private static class AddThesisListTask extends AsyncTask<Thesis, Void, Void> {
+
+        @NonNull
+        private final AppDataBase dataBase;
+
+        public AddThesisListTask(@NonNull AppDataBase dataBase) {
+            this.dataBase = dataBase;
+        }
+
+        @Override
+        protected Void doInBackground(Thesis... theses) {
+            dataBase.thesisRepository().addThesis(theses[0]);
+            return null;
+        }
     }
 
     private static class LoadThesisListTask extends AsyncTask<String, Void, List<Thesis>> {
