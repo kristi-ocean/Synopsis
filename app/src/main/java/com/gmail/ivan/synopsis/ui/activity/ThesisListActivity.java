@@ -14,6 +14,7 @@ import com.gmail.ivan.synopsis.data.database.AppDataBaseSingleton;
 import com.gmail.ivan.synopsis.data.entity.Thesis;
 import com.gmail.ivan.synopsis.mvp.contracts.ThesisListContract;
 import com.gmail.ivan.synopsis.mvp.presenter.ThesisListPresenter;
+import com.gmail.ivan.synopsis.ui.adapter.SwipeToDeleteCallback;
 import com.gmail.ivan.synopsis.ui.adapter.ThesisRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.router.ThesisListRouter;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +58,9 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
         recyclerAdapter = new ThesisRecyclerAdapter(getPresenter());
         recyclerView.setAdapter(recyclerAdapter);
 
+        ItemTouchHelper itemTouchHelper =
+                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

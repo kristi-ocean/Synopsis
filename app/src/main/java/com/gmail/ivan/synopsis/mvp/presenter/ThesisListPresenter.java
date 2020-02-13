@@ -70,7 +70,23 @@ public class ThesisListPresenter
 
     @Override
     public void deleteThesis(@NonNull Thesis thesis) {
-        // TODO: 2/12/2020 will be created in another task
+        new DeleteThesisTask(dataBase).execute(thesis);
+    }
+
+    private static class DeleteThesisTask extends AsyncTask<Thesis, Void, Void>{
+
+        @NonNull
+        private final AppDataBase dataBase;
+
+        private DeleteThesisTask(@NonNull AppDataBase dataBase) {
+            this.dataBase = dataBase;
+        }
+
+        @Override
+        protected Void doInBackground(Thesis... theses) {
+            dataBase.thesisRepository().deleteThesis(theses[0]);
+            return null;
+        }
     }
 
     private static class AddThesisListTask extends AsyncTask<Thesis, Void, Void> {
