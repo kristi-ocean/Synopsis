@@ -6,6 +6,6 @@ public class ThesisPagerRouter implements ThesisPagerContract.Router {
 
     @Override
     public void back() {
-        // TODO: 2/13/2020 will ba created in another task
+        //none
     }
 }
