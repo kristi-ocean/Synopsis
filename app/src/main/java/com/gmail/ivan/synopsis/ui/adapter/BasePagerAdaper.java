@@ -23,6 +23,7 @@ public abstract class BasePagerAdaper<E> extends FragmentStatePagerAdapter {
 
     public void setEntityList(@NonNull List<E> entityList) {
         this.entityList = entityList;
+        notifyDataSetChanged();
     }
 
     @NonNull

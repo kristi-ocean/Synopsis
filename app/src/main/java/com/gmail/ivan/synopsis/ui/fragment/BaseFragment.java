@@ -27,6 +27,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
+        getPresenter().attach(this);
     }
 
     @Nullable
@@ -53,14 +54,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        getPresenter().attach(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         getPresenter().detach();
     }
 

@@ -1,46 +1,126 @@
 package com.gmail.ivan.synopsis.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.gmail.ivan.synopsis.R;
+import com.gmail.ivan.synopsis.data.database.AppDataBaseSingleton;
 import com.gmail.ivan.synopsis.data.entity.Thesis;
 import com.gmail.ivan.synopsis.mvp.contracts.ThesisPagerContract;
 import com.gmail.ivan.synopsis.mvp.presenter.ThesisPagerPresenter;
+import com.gmail.ivan.synopsis.ui.adapter.ThesisPagerAdapter;
+import com.gmail.ivan.synopsis.ui.router.ThesisPagerRouter;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
-public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter> implements ThesisPagerContract.View {
+public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
+        implements ThesisPagerContract.View {
+
+    private static final String THESIS_ID = "thesis_id";
+
+    private static final String THEME_NAME = "theme_name";
+
+    @Nullable
+    private ProgressBar progressBar;
+
+    @Nullable
+    private ViewPager viewPager;
+
+    @Nullable
+    private ThesisPagerAdapter thesisPagerAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        progressBar = findViewById(R.id.thesis_pager_proressbar);
+
+        viewPager = findViewById(R.id.thesis_viewpager);
+        thesisPagerAdapter = new ThesisPagerAdapter(getSupportFragmentManager());
+        Objects.requireNonNull(viewPager)
+               .setAdapter(thesisPagerAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        getPresenter().loadThesisList();
+    }
 
     @Override
     public void setThesisList(List<Thesis> thesisList) {
-        // TODO: 2/13/2020 will ba created in another task
+        assert thesisPagerAdapter != null;
+        thesisPagerAdapter.setEntityList(thesisList);
+        String thesisId = getIntent().getStringExtra(THESIS_ID);
+        for(int i = 0; i < thesisList.size(); i++){
+            if(thesisList.get(i).getId().equals(thesisId) ){
+                Objects.requireNonNull(viewPager)
+                       .setCurrentItem(i);
+                break;
+            }
+        }
     }
 
     @NonNull
     @Override
     protected ThesisPagerPresenter createPresenter() {
-        // TODO: 2/13/2020 will ba created in another task
-        return null;
+        ThesisPagerRouter router = new ThesisPagerRouter();
+        ThesisPagerPresenter presenter = new ThesisPagerPresenter(router,
+                                                                  AppDataBaseSingleton.get(this)
+                                                                                      .getDataBase(),
+                                                                  Objects.requireNonNull(getIntent()
+                                                                                                 .getStringExtra(
+                                                                                                         THEME_NAME)));
+
+        return presenter;
     }
 
     @Override
     public int getLayoutRes() {
-        // TODO: 2/13/2020 will ba created in another task
-        return 0;
+        return R.layout.activity_thesis_pager;
     }
 
     @Override
     public String getToolbarTitle() {
-        // TODO: 2/13/2020 will ba created in another task
-        return null;
+        return getIntent().getStringExtra(THEME_NAME);
     }
 
     @Override
     public void showProgress() {
-        // TODO: 2/13/2020 will ba created in another task
+        Objects.requireNonNull(progressBar)
+               .setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        // TODO: 2/13/2020 will ba created in another task
+        Objects.requireNonNull(progressBar)
+               .setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Log.d("OLOLO", "onBackPressed: OLOLOL");
+    }
+
+    public static Intent newIntent(@NonNull Context packageContext,
+                                   @NonNull String thesisId,
+                                   @NonNull String themeName) {
+        Intent intent = new Intent(packageContext, ThesisPagerActivity.class);
+        intent.putExtra(THESIS_ID, thesisId);
+        intent.putExtra(THEME_NAME, themeName);
+
+        return intent;
     }
 }

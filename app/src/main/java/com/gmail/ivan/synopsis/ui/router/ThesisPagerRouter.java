@@ -1,4 +1,4 @@
-package com.gmail.ivan.synopsis.ui.fragment;
+package com.gmail.ivan.synopsis.ui.router;
 
 import com.gmail.ivan.synopsis.mvp.contracts.ThesisPagerContract;
 

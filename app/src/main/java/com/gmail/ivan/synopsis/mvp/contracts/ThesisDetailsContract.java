@@ -9,15 +9,13 @@ public interface ThesisDetailsContract {
     interface View extends BaseContract.View {
 
         void showThesis(@NonNull Thesis thesis);
-
-        void emptyThesisName();
-
-        void emptyThesisDescription();
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
 
-        void saveThesis();
+        void loadThesis(@NonNull String thesisId);
+
+        void saveThesis(@NonNull Thesis thesis);
     }
 
     interface Router extends BaseContract.Router {
