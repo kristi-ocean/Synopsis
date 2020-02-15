@@ -42,15 +42,7 @@ public class ThesisViewHolder extends BaseViewHolder<Thesis> implements View.OnC
         thesis = entity;
         thesisName.setText(entity.getThesisName());
 
-        String thesisDescriptionText = entity.getThesisDescription();
-
-        thesisDescriptionText =
-                thesisDescriptionText.length() > DEST_STR_LENGTH
-                ? thesisDescriptionText.substring(0,
-                                              DEST_STR_LENGTH)
-                : thesisDescriptionText;
-
-        thesisDescription.setText(thesisDescriptionText);
+        thesisDescription.setText(entity.getThesisDescription());
     }
 
     @Override

@@ -19,6 +19,9 @@
 
         <activity android:name=".ui.activity.ThesisListActivity"
             android:parentActivityName=".ui.activity.ThemeListActivity"/>
+
+        <activity android:name=".ui.activity.ThesisPagerActivity"
+            android:parentActivityName=".ui.activity.ThemeListActivity"/>
     </application>
 
 </manifest>

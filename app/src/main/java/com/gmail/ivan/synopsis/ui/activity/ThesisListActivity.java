@@ -3,6 +3,7 @@ package com.gmail.ivan.synopsis.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.gmail.ivan.synopsis.ui.adapter.SwipeToDeleteCallback;
 import com.gmail.ivan.synopsis.ui.adapter.ThesisRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.router.ThesisListRouter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -104,10 +106,11 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
     @Override
     protected ThesisListPresenter createPresenter() {
         ThesisListRouter router = new ThesisListRouter(this);
+        Log.d(TAG, "createPresenter: Intent null " + (getIntent() == null));
         return new ThesisListPresenter(router,
                                        AppDataBaseSingleton.get(this)
                                                            .getDataBase(),
-                                       Objects.requireNonNull(getIntent().getStringExtra(THEME_NAME)));
+                                       (Objects.requireNonNull(getIntent().getStringExtra(THEME_NAME))));
     }
 
     @Override

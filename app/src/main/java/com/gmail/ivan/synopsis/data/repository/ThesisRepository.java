@@ -17,6 +17,9 @@ public interface ThesisRepository {
     @Insert
     void addThesis(@NonNull Thesis thesis);
 
+    @Query("SELECT * FROM thesis Where id = :thesisId")
+    Thesis getThesis(@NonNull String thesisId);
+
     @Update
     void updateThesis(@NonNull Thesis thesis);
 
