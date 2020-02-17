@@ -1,5 +1,6 @@
 package com.gmail.ivan.synopsis.ui.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,7 +40,6 @@ public class ThemeViewHolder extends BaseViewHolder<Theme> implements View.OnCli
     public void bind(@NonNull Theme entity) {
         theme = entity;
         themeName.setText(entity.getThemeName());
-
         String quantifiedString = itemView.getResources()
                                           .getQuantityString(R.plurals.thesis_count_string,
                                                              theme.getThesisCount(), theme.getThesisCount());

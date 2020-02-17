@@ -8,11 +8,14 @@ import com.gmail.ivan.synopsis.data.entity.Theme;
 import com.gmail.ivan.synopsis.mvp.contracts.ThemeListContract;
 import com.gmail.ivan.synopsis.ui.router.ThemeListRouter;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ThemeListPresenter
         extends BasePresenter<ThemeListContract.View, ThemeListContract.Router> implements
@@ -22,6 +25,9 @@ public class ThemeListPresenter
 
     @NonNull
     private final AppDataBase dataBase;
+
+    @Nullable
+    private Theme resentlyDeletedTheme;
 
     public ThemeListPresenter(@NonNull ThemeListRouter router, @NonNull AppDataBase dataBase) {
         super(router);
@@ -60,10 +66,46 @@ public class ThemeListPresenter
 
     @Override
     public void delete(@NonNull Theme theme) {
+        resentlyDeletedTheme = theme;
         new DeleteThemeTask(dataBase).execute(theme);
+        Objects.requireNonNull(getView())
+               .showUndoDelete();
     }
 
-    private static class DeleteThemeTask extends AsyncTask<Theme, Void, Void>{
+    @Override
+    public void addRecentlyDeleted() {
+        new AddResentlyDeletedTask(dataBase).execute(resentlyDeletedTheme);
+        try {
+            List<Theme> themeList = new LoadThemeListTask(dataBase).execute()
+                                                                   .get();
+
+            Objects.requireNonNull(getView())
+                   .showThemeList(themeList);
+        } catch (ExecutionException e) {
+            Log.e(TAG, "loadThemeList: ", e);
+        } catch (InterruptedException e) {
+            Log.e(TAG, "loadThemeList: ", e);
+        }
+    }
+
+    private static class AddResentlyDeletedTask extends AsyncTask<Theme, Void, Void> {
+
+        @NonNull
+        private final AppDataBase dataBase;
+
+        public AddResentlyDeletedTask(@NonNull AppDataBase dataBase) {
+            this.dataBase = dataBase;
+        }
+
+        @Override
+        protected Void doInBackground(Theme... themes) {
+            dataBase.themeRepository()
+                    .addTheme(themes[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteThemeTask extends AsyncTask<Theme, Void, Void> {
 
         @NonNull
         private final AppDataBase dataBase;
@@ -74,7 +116,8 @@ public class ThemeListPresenter
 
         @Override
         protected Void doInBackground(Theme... themes) {
-            dataBase.themeRepository().deleteTheme(themes[0]);
+            dataBase.themeRepository()
+                    .deleteTheme(themes[0]);
             return null;
         }
     }

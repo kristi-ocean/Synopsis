@@ -10,8 +10,10 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Theme {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @NonNull
-    @PrimaryKey
     private String themeName;
 
     @Ignore
@@ -19,6 +21,14 @@ public class Theme {
 
     public Theme(@NonNull String themeName) {
         this.themeName = themeName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @NonNull
