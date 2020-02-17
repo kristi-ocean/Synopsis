@@ -28,7 +28,7 @@ public class ThesisDetailsPresenter
     }
 
     @Override
-    public void loadThesis(@NonNull String thesisId) {
+    public void loadThesis(int thesisId) {
         try {
             Thesis thesis = new LoadThesisTask(dataBase).execute(thesisId).get();
             Objects.requireNonNull(getView())
@@ -61,7 +61,7 @@ public class ThesisDetailsPresenter
         }
     }
 
-    private static class LoadThesisTask extends AsyncTask<String, Void, Thesis>{
+    private static class LoadThesisTask extends AsyncTask<Integer, Void, Thesis>{
 
         @NonNull
         private final AppDataBase dataBase;
@@ -71,8 +71,8 @@ public class ThesisDetailsPresenter
         }
 
         @Override
-        protected Thesis doInBackground(String... strings) {
-            return dataBase.thesisRepository().getThesis(strings[0]);
+        protected Thesis doInBackground(Integer... integers) {
+            return dataBase.thesisRepository().getThesis(integers[0]);
         }
     }
 }

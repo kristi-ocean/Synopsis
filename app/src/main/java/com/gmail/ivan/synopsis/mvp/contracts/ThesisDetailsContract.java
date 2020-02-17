@@ -13,7 +13,7 @@ public interface ThesisDetailsContract {
 
     interface Presenter extends BaseContract.Presenter<View> {
 
-        void loadThesis(@NonNull String thesisId);
+        void loadThesis(int thesisId);
 
         void saveThesis(@NonNull Thesis thesis);
     }

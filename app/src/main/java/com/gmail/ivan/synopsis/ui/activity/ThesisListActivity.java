@@ -18,6 +18,7 @@ import com.gmail.ivan.synopsis.mvp.presenter.ThesisListPresenter;
 import com.gmail.ivan.synopsis.ui.adapter.SwipeToDeleteCallback;
 import com.gmail.ivan.synopsis.ui.adapter.ThesisRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.router.ThesisListRouter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Serializable;
 import java.util.List;
@@ -100,6 +101,17 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
     public void showEmptyThesisList() {
         Objects.requireNonNull(emptyListText)
                .setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showUndoDelete() {
+        View view = findViewById(R.id.thesis_list_coordinator_layout);
+
+        Snackbar snackbar = Snackbar.make(view, R.string.undo_delete_text, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.undo_text, v -> {
+            getPresenter().addRecentlyDeleted();
+        });
+        snackbar.show();
     }
 
     @NonNull

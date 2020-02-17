@@ -8,8 +8,6 @@ import com.gmail.ivan.synopsis.data.entity.Theme;
 import com.gmail.ivan.synopsis.mvp.contracts.ThemeListContract;
 import com.gmail.ivan.synopsis.ui.router.ThemeListRouter;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -74,7 +72,7 @@ public class ThemeListPresenter
 
     @Override
     public void addRecentlyDeleted() {
-        new AddResentlyDeletedTask(dataBase).execute(resentlyDeletedTheme);
+        new AddRecentlyDeletedTask(dataBase).execute(resentlyDeletedTheme);
         try {
             List<Theme> themeList = new LoadThemeListTask(dataBase).execute()
                                                                    .get();
@@ -88,12 +86,12 @@ public class ThemeListPresenter
         }
     }
 
-    private static class AddResentlyDeletedTask extends AsyncTask<Theme, Void, Void> {
+    private static class AddRecentlyDeletedTask extends AsyncTask<Theme, Void, Void> {
 
         @NonNull
         private final AppDataBase dataBase;
 
-        public AddResentlyDeletedTask(@NonNull AppDataBase dataBase) {
+        public AddRecentlyDeletedTask(@NonNull AppDataBase dataBase) {
             this.dataBase = dataBase;
         }
 

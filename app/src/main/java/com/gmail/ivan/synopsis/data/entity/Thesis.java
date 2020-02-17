@@ -8,9 +8,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Thesis {
 
-    @PrimaryKey
-    @NonNull
-    private final String id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @NonNull
     private String themeName;
@@ -22,26 +21,26 @@ public class Thesis {
     private String thesisDescription;
 
     @Ignore
-    public Thesis(@NonNull String id, @NonNull String themeName) {
-        this.id = id;
+    public Thesis(@NonNull String themeName) {
         this.themeName = themeName;
         thesisName = "New thesis";
         thesisDescription = "";
     }
 
-    public Thesis(@NonNull String id,
-                  @NonNull String themeName,
+    public Thesis(@NonNull String themeName,
                   @NonNull String thesisName,
                   @NonNull String thesisDescription) {
-        this.id = id;
         this.themeName = themeName;
         this.thesisName = thesisName;
         this.thesisDescription = thesisDescription;
     }
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @NonNull
