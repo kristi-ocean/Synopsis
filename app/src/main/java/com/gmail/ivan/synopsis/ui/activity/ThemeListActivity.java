@@ -17,6 +17,7 @@ import com.gmail.ivan.synopsis.ui.adapter.ThemeRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.fragment.BaseDialog;
 import com.gmail.ivan.synopsis.ui.fragment.NewThemeDialog;
 import com.gmail.ivan.synopsis.ui.router.ThemeListRouter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.Objects;
@@ -113,6 +114,17 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
     public void showEmptyList() {
         Objects.requireNonNull(emptyListText)
                .setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showUndoDelete() {
+        View view = findViewById(R.id.theme_coordinator_layout);
+
+        Snackbar snackbar = Snackbar.make(view, R.string.undo_delete_text, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.undo_text, v -> {
+            getPresenter().addRecentlyDeleted();
+        });
+        snackbar.show();
     }
 
     @Override

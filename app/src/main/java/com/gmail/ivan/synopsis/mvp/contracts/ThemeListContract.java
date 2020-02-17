@@ -14,6 +14,8 @@ public interface ThemeListContract {
         void showThemeList(@Nullable List<Theme> themeList);
 
         void showEmptyList();
+
+        void showUndoDelete();
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
@@ -25,6 +27,8 @@ public interface ThemeListContract {
         void openTheme(@NonNull Theme theme);
 
         void delete(@NonNull Theme theme);
+
+        void addRecentlyDeleted();
     }
 
     interface Router extends BaseContract.Router {

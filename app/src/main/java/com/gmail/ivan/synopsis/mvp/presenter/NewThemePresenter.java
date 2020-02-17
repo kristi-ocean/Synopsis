@@ -6,6 +6,7 @@ import com.gmail.ivan.synopsis.data.database.AppDataBase;
 import com.gmail.ivan.synopsis.data.entity.Theme;
 import com.gmail.ivan.synopsis.mvp.contracts.NewThemeDialogContract;
 
+import java.util.Date;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
