@@ -78,14 +78,13 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
             }
         });
 
-        getPresenter().loadThesis(Objects.requireNonNull(Objects.requireNonNull(getArguments())
-                                                                .getString(THESIS_ID)));
+        getPresenter().loadThesis(Objects.requireNonNull(getArguments())
+                                         .getInt(THESIS_ID));
     }
 
     @Override
     public void showThesis(@NonNull Thesis thesis) {
         this.thesis = thesis;
-
         Objects.requireNonNull(thesisTitle)
                .setText(thesis.getThesisName());
         Objects.requireNonNull(thesisDescription)
@@ -108,10 +107,10 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
         return presenter;
     }
 
-    public static ThesisDetailsFragment newInstance(@NonNull String thesisId) {
+    public static ThesisDetailsFragment newInstance(int thesisId) {
 
         Bundle args = new Bundle();
-        args.putString(THESIS_ID, thesisId);
+        args.putInt(THESIS_ID, thesisId);
 
         ThesisDetailsFragment fragment = new ThesisDetailsFragment();
         fragment.setArguments(args);

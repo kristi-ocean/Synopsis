@@ -9,10 +9,10 @@ import com.gmail.ivan.synopsis.mvp.contracts.ThesisListContract;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ThesisListPresenter
         extends BasePresenter<ThesisListContract.View, ThesisListContract.Router>
@@ -25,6 +25,9 @@ public class ThesisListPresenter
 
     @NonNull
     private final String themeName;
+
+    @Nullable
+    private Thesis recentlyDeletedThesis;
 
     public ThesisListPresenter(@NonNull ThesisListContract.Router router,
                                @NonNull AppDataBase dataBase,
@@ -44,8 +47,8 @@ public class ThesisListPresenter
                 Objects.requireNonNull(getView())
                        .showEmptyThesisList();
             } else {
-                assert getView() != null;
-                getView().showThesisList(thesisList);
+                Objects.requireNonNull(getView())
+                       .showThesisList(thesisList);
             }
         } catch (ExecutionException e) {
             Log.e(TAG, "loadThesisList: ", e);
@@ -56,9 +59,9 @@ public class ThesisListPresenter
 
     @Override
     public void newThesis() {
-        Thesis thesis = new Thesis(UUID.randomUUID().toString(), themeName);
+        Thesis thesis = new Thesis(themeName);
 
-        new AddThesisListTask(dataBase).execute(thesis);
+        new AddThesisTask(dataBase).execute(thesis);
 
         getRouter().openThesis(thesis);
     }
@@ -70,7 +73,26 @@ public class ThesisListPresenter
 
     @Override
     public void deleteThesis(@NonNull Thesis thesis) {
+        recentlyDeletedThesis = thesis;
         new DeleteThesisTask(dataBase).execute(thesis);
+        Objects.requireNonNull(getView())
+               .showUndoDelete();
+    }
+
+    @Override
+    public void addRecentlyDeleted() {
+        new AddThesisTask(dataBase).execute(recentlyDeletedThesis);
+        try {
+            List<Thesis> thesisList = new LoadThesisListTask(dataBase).execute(themeName)
+                                                                   .get();
+
+            Objects.requireNonNull(getView())
+                   .showThesisList(thesisList);
+        } catch (ExecutionException e) {
+            Log.e(TAG, "loadThemeList: ", e);
+        } catch (InterruptedException e) {
+            Log.e(TAG, "loadThemeList: ", e);
+        }
     }
 
     private static class DeleteThesisTask extends AsyncTask<Thesis, Void, Void>{
@@ -89,12 +111,12 @@ public class ThesisListPresenter
         }
     }
 
-    private static class AddThesisListTask extends AsyncTask<Thesis, Void, Void> {
+    private static class AddThesisTask extends AsyncTask<Thesis, Void, Void> {
 
         @NonNull
         private final AppDataBase dataBase;
 
-        public AddThesisListTask(@NonNull AppDataBase dataBase) {
+        public AddThesisTask(@NonNull AppDataBase dataBase) {
             this.dataBase = dataBase;
         }
 

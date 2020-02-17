@@ -3,7 +3,6 @@ package com.gmail.ivan.synopsis.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -59,11 +58,17 @@ public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
 
     @Override
     public void setThesisList(List<Thesis> thesisList) {
-        assert thesisPagerAdapter != null;
-        thesisPagerAdapter.setEntityList(thesisList);
-        String thesisId = getIntent().getStringExtra(THESIS_ID);
-        for(int i = 0; i < thesisList.size(); i++){
-            if(thesisList.get(i).getId().equals(thesisId) ){
+        Objects.requireNonNull(thesisPagerAdapter)
+               .setEntityList(thesisList);
+        int thesisId = getIntent().getIntExtra(THESIS_ID, 0);
+        if (thesisId == 0) {
+            Objects.requireNonNull(viewPager)
+                   .setCurrentItem(thesisList.size() - 1);
+            return;
+        }
+        for (int i = 0; i < thesisList.size(); i++) {
+            if (thesisList.get(i)
+                          .getId() == (thesisId)) {
                 Objects.requireNonNull(viewPager)
                        .setCurrentItem(i);
                 break;
@@ -107,15 +112,8 @@ public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
                .setVisibility(View.GONE);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Log.d("OLOLO", "onBackPressed: OLOLOL");
-    }
-
     public static Intent newIntent(@NonNull Context packageContext,
-                                   @NonNull String thesisId,
+                                   int thesisId,
                                    @NonNull String themeName) {
         Intent intent = new Intent(packageContext, ThesisPagerActivity.class);
         intent.putExtra(THESIS_ID, thesisId);

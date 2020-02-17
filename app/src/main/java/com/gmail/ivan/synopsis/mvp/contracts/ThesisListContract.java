@@ -14,6 +14,8 @@ public interface ThesisListContract {
         void showThesisList(@Nullable List<Thesis> thesisList);
 
         void showEmptyThesisList();
+
+        void showUndoDelete();
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
@@ -25,6 +27,8 @@ public interface ThesisListContract {
         void openThesis(@NonNull Thesis thesis);
 
         void deleteThesis(@NonNull Thesis thesis);
+
+        void addRecentlyDeleted();
     }
 
     interface Router extends BaseContract.Router {

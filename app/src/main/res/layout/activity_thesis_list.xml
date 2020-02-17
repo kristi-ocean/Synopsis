@@ -33,6 +33,12 @@
         app:layout_constraintStart_toStartOf="@+id/thesis_recycler"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.459" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/thesis_list_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/thesis_recycler" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
