@@ -1,8 +1,6 @@
 package com.gmail.ivan.synopsis.ui.activity;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +15,7 @@ import com.gmail.ivan.synopsis.ui.adapter.ThemeRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.fragment.BaseDialog;
 import com.gmail.ivan.synopsis.ui.fragment.NewThemeDialog;
 import com.gmail.ivan.synopsis.ui.router.ThemeListRouter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -44,6 +43,9 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
     @Nullable
     private ThemeRecyclerAdapter recyclerAdapter;
 
+    @Nullable
+    private FloatingActionButton fab;
+
     @NonNull
     @Override
     protected ThemeListPresenter createPresenter() {
@@ -65,25 +67,14 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerAdapter = new ThemeRecyclerAdapter(getPresenter());
         recyclerView.setAdapter(recyclerAdapter);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
+        ItemTouchHelper itemTouchHelper =
+                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.theme_list_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.new_theme:
-                getPresenter().newTheme();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        fab = findViewById(R.id.theme_list_fab_add);
+        fab.setOnClickListener(v -> {
+            getPresenter().newTheme();
+        });
     }
 
     @Override
@@ -118,13 +109,11 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
 
     @Override
     public void showUndoDelete() {
-        View view = findViewById(R.id.theme_coordinator_layout);
-
-        Snackbar snackbar = Snackbar.make(view, R.string.undo_delete_text, Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.undo_text, v -> {
-            getPresenter().addRecentlyDeleted();
-        });
-        snackbar.show();
+        Snackbar.make(Objects.requireNonNull(fab), R.string.undo_delete_text, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo_text, v -> {
+                    getPresenter().addRecentlyDeleted();
+                })
+                .show();
     }
 
     @Override

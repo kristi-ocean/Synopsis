@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,9 +16,9 @@ import com.gmail.ivan.synopsis.mvp.presenter.ThesisListPresenter;
 import com.gmail.ivan.synopsis.ui.adapter.SwipeToDeleteCallback;
 import com.gmail.ivan.synopsis.ui.adapter.ThesisRecyclerAdapter;
 import com.gmail.ivan.synopsis.ui.router.ThesisListRouter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,6 +47,9 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
     @Nullable
     private ThesisRecyclerAdapter recyclerAdapter;
 
+    @Nullable
+    private FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,23 +65,11 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
         ItemTouchHelper itemTouchHelper =
                 new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.thesis_list_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.new_thesis:
-                getPresenter().newThesis();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        fab = findViewById(R.id.thesis_list_fab_add);
+        fab.setOnClickListener(v -> {
+            getPresenter().newThesis();
+        });
     }
 
     @Override
@@ -105,13 +94,11 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
 
     @Override
     public void showUndoDelete() {
-        View view = findViewById(R.id.thesis_list_coordinator_layout);
-
-        Snackbar snackbar = Snackbar.make(view, R.string.undo_delete_text, Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.undo_text, v -> {
-            getPresenter().addRecentlyDeleted();
-        });
-        snackbar.show();
+        Snackbar.make(Objects.requireNonNull(fab), R.string.undo_delete_text, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo_text, v -> {
+                    getPresenter().addRecentlyDeleted();
+                })
+                .show();
     }
 
     @NonNull

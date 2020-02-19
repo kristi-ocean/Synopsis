@@ -1,44 +1,35 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/theme_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-63dp"
-        tools:layout_editor_absoluteY="-286dp" />
+        android:layout_height="match_parent" />
 
     <ProgressBar
         android:id="@+id/theme_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_recycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/theme_recycler"
-        app:layout_constraintTop_toTopOf="@+id/theme_recycler" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/empty_themelist_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_list"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_recycler"
-        app:layout_constraintEnd_toEndOf="@+id/theme_recycler"
-        app:layout_constraintStart_toStartOf="@+id/theme_recycler"
-        app:layout_constraintTop_toTopOf="@+id/theme_recycler" />
+        android:layout_gravity="center"/>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/theme_coordinator_layout"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/theme_list_fab_add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_recycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_menu_add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
