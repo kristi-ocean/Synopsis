@@ -30,7 +30,8 @@ public class ThesisDetailsPresenter
     @Override
     public void loadThesis(int thesisId) {
         try {
-            Thesis thesis = new LoadThesisTask(dataBase).execute(thesisId).get();
+            Thesis thesis = new LoadThesisTask(dataBase).execute(thesisId)
+                                                        .get();
             Objects.requireNonNull(getView())
                    .showThesis(thesis);
         } catch (ExecutionException e) {
@@ -41,27 +42,11 @@ public class ThesisDetailsPresenter
     }
 
     @Override
-    public void saveThesis(@NonNull Thesis thesis) {
-        new UpdateThesisTask(dataBase).execute(thesis);
+    public void showEditThesis(@NonNull Thesis thesis) {
+        getRouter().showEditThesis(thesis);
     }
 
-    private static class UpdateThesisTask extends AsyncTask<Thesis, Void, Void>{
-
-        @NonNull
-        private final AppDataBase dataBase;
-
-        public UpdateThesisTask(@NonNull AppDataBase dataBase) {
-            this.dataBase = dataBase;
-        }
-
-        @Override
-        protected Void doInBackground(Thesis... theses) {
-            dataBase.thesisRepository().updateThesis(theses[0]);
-            return null;
-        }
-    }
-
-    private static class LoadThesisTask extends AsyncTask<Integer, Void, Thesis>{
+    private static class LoadThesisTask extends AsyncTask<Integer, Void, Thesis> {
 
         @NonNull
         private final AppDataBase dataBase;
@@ -72,7 +57,8 @@ public class ThesisDetailsPresenter
 
         @Override
         protected Thesis doInBackground(Integer... integers) {
-            return dataBase.thesisRepository().getThesis(integers[0]);
+            return dataBase.thesisRepository()
+                           .getThesis(integers[0]);
         }
     }
 }

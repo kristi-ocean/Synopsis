@@ -63,7 +63,7 @@ public class ThesisListPresenter
 
         new AddThesisTask(dataBase).execute(thesis);
 
-        getRouter().openThesis(thesis);
+        getRouter().openNewThesis(thesis);
     }
 
     @Override
