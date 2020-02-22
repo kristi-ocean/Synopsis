@@ -1,10 +1,12 @@
 package com.gmail.ivan.synopsis.ui.router;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.gmail.ivan.synopsis.data.entity.Thesis;
 import com.gmail.ivan.synopsis.mvp.contracts.ThesisListContract;
 import com.gmail.ivan.synopsis.ui.activity.BaseActivity;
+import com.gmail.ivan.synopsis.ui.activity.ThesisEditActivity;
 import com.gmail.ivan.synopsis.ui.activity.ThesisPagerActivity;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,16 @@ public class ThesisListRouter implements ThesisListContract.Router {
     public void openThesis(@NonNull Thesis thesis) {
         Intent intent =
                 ThesisPagerActivity.newIntent(activity, thesis.getId(), thesis.getThemeName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void openNewThesis(@NonNull Thesis thesis) {
+        Intent intent =
+                ThesisEditActivity.newIntent(activity, thesis.getId(), thesis.getThemeName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
         activity.startActivity(intent);
     }

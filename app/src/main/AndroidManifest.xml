@@ -20,6 +20,8 @@
         <activity android:name=".ui.activity.ThesisListActivity"/>
 
         <activity android:name=".ui.activity.ThesisPagerActivity"/>
+
+        <activity android:name=".ui.activity.ThesisEditActivity"/>
     </application>
 
 </manifest>

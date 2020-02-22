@@ -3,6 +3,7 @@ package com.gmail.ivan.synopsis.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -52,7 +53,6 @@ public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
     @Override
     protected void onStart() {
         super.onStart();
-
         getPresenter().loadThesisList();
     }
 
@@ -61,11 +61,7 @@ public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
         Objects.requireNonNull(thesisPagerAdapter)
                .setEntityList(thesisList);
         int thesisId = getIntent().getIntExtra(THESIS_ID, 0);
-        if (thesisId == 0) {
-            Objects.requireNonNull(viewPager)
-                   .setCurrentItem(thesisList.size() - 1);
-            return;
-        }
+
         for (int i = 0; i < thesisList.size(); i++) {
             if (thesisList.get(i)
                           .getId() == (thesisId)) {

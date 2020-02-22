@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.gmail.ivan.synopsis.R;
 import com.gmail.ivan.synopsis.data.database.AppDataBaseSingleton;
@@ -13,6 +14,7 @@ import com.gmail.ivan.synopsis.data.entity.Thesis;
 import com.gmail.ivan.synopsis.mvp.contracts.ThesisDetailsContract;
 import com.gmail.ivan.synopsis.mvp.presenter.ThesisDetailsPresenter;
 import com.gmail.ivan.synopsis.ui.router.ThesisDetailsRouter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
 
@@ -25,10 +27,13 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
     private static final String THESIS_ID = "thesis_id";
 
     @Nullable
-    private EditText thesisTitle;
+    private TextView thesisTitle;
 
     @Nullable
-    private EditText thesisDescription;
+    private TextView thesisDescription;
+
+    @Nullable
+    private FloatingActionButton editFab;
 
     @Nullable
     private Thesis thesis;
@@ -38,45 +43,18 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
         super.onViewCreated(view, savedInstanceState);
 
         thesisTitle = view.findViewById(R.id.thesis_title);
-        thesisTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("OLOLO", "onTextChanged: " + (thesis == null));
-                Objects.requireNonNull(thesis)
-                       .setThesisName(charSequence.toString());
-                getPresenter().saveThesis(thesis);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         thesisDescription = view.findViewById(R.id.thesis_details_description);
-        thesisDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Objects.requireNonNull(thesis)
-                       .setThesisDescription(charSequence.toString());
-                getPresenter().saveThesis(thesis);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+        editFab = view.findViewById(R.id.edit_thesis_fab);
+        editFab.setOnClickListener(v -> {
+            getPresenter().showEditThesis(Objects.requireNonNull(thesis));
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         getPresenter().loadThesis(Objects.requireNonNull(getArguments())
                                          .getInt(THESIS_ID));

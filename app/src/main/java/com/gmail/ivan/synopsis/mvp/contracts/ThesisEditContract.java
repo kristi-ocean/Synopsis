@@ -4,7 +4,7 @@ import com.gmail.ivan.synopsis.data.entity.Thesis;
 
 import androidx.annotation.NonNull;
 
-public interface ThesisDetailsContract {
+public interface ThesisEditContract {
 
     interface View extends BaseContract.View {
 
@@ -15,11 +15,15 @@ public interface ThesisDetailsContract {
 
         void loadThesis(int thesisId);
 
-        void showEditThesis(@NonNull Thesis thesis);
+        void saveThesis(@NonNull Thesis thesis);
+
+        void loadNewThesis(@NonNull String themeName);
+
+        void back(@NonNull Thesis thesis);
     }
 
     interface Router extends BaseContract.Router {
 
-        void showEditThesis(@NonNull Thesis thesis);
+        void back(@NonNull Thesis thesis);
     }
 }
