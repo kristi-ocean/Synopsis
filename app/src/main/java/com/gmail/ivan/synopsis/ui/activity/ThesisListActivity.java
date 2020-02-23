@@ -63,7 +63,7 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
         recyclerView.setAdapter(recyclerAdapter);
 
         ItemTouchHelper itemTouchHelper =
-                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
+                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter, this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         fab = findViewById(R.id.thesis_list_fab_add);

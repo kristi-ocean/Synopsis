@@ -68,7 +68,7 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
         recyclerAdapter = new ThemeRecyclerAdapter(getPresenter());
         recyclerView.setAdapter(recyclerAdapter);
         ItemTouchHelper itemTouchHelper =
-                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter));
+                new ItemTouchHelper(new SwipeToDeleteCallback(recyclerAdapter, this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         fab = findViewById(R.id.theme_list_fab_add);
