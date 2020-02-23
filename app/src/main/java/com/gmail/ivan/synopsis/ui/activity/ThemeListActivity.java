@@ -18,6 +18,7 @@ import com.gmail.ivan.synopsis.ui.router.ThemeListRouter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -105,6 +106,8 @@ public class ThemeListActivity extends BaseActivity<ThemeListPresenter> implemen
     public void showEmptyList() {
         Objects.requireNonNull(emptyListText)
                .setVisibility(View.VISIBLE);
+        Objects.requireNonNull(recyclerAdapter)
+               .setEntityListData(Collections.EMPTY_LIST);
     }
 
     @Override

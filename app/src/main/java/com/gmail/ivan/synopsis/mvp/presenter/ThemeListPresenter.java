@@ -25,7 +25,7 @@ public class ThemeListPresenter
     private final AppDataBase dataBase;
 
     @Nullable
-    private Theme resentlyDeletedTheme;
+    private Theme recentlyDeletedTheme;
 
     public ThemeListPresenter(@NonNull ThemeListRouter router, @NonNull AppDataBase dataBase) {
         super(router);
@@ -64,7 +64,7 @@ public class ThemeListPresenter
 
     @Override
     public void delete(@NonNull Theme theme) {
-        resentlyDeletedTheme = theme;
+        recentlyDeletedTheme = theme;
         new DeleteThemeTask(dataBase).execute(theme);
         Objects.requireNonNull(getView())
                .showUndoDelete();
@@ -72,7 +72,7 @@ public class ThemeListPresenter
 
     @Override
     public void addRecentlyDeleted() {
-        new AddRecentlyDeletedTask(dataBase).execute(resentlyDeletedTheme);
+        new AddRecentlyDeletedTask(dataBase).execute(recentlyDeletedTheme);
         try {
             List<Theme> themeList = new LoadThemeListTask(dataBase).execute()
                                                                    .get();

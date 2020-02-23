@@ -2,12 +2,15 @@
     <string name="app_name">Synopsis</string>
 
     <!-- Theme List Strings -->
-    <string name="empty_list">There is no themes</string>
+    <string name="theme_empty_list">There is no themes</string>
     <string name="add_theme">Add Theme</string>
     <string name="new_theme_title">Enter new theme title:</string>
     <string name="empty_theme_title">Empty theme title!</string>
 
-    <!--snackbar text    -->
+    <!-- Thesis List Strings -->
+    <string name="thesis_empty_list">There is no theses</string>
+
+    <!-- snackbar text -->
     <string name="undo_delete_text">Undo delete</string>
     <string name="undo_text">UNDO</string>
 </resources>
