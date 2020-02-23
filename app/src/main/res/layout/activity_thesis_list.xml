@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/empty_list" />
+        android:text="@string/thesis_empty_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/thesis_list_fab_add"

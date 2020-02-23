@@ -19,6 +19,7 @@ import com.gmail.ivan.synopsis.ui.router.ThesisListRouter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -90,6 +91,8 @@ public class ThesisListActivity extends BaseActivity<ThesisListPresenter>
     public void showEmptyThesisList() {
         Objects.requireNonNull(emptyListText)
                .setVisibility(View.VISIBLE);
+        Objects.requireNonNull(recyclerAdapter)
+               .setEntityListData(Collections.EMPTY_LIST);
     }
 
     @Override
