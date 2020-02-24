@@ -1,11 +1,9 @@
 package com.gmail.ivan.synopsis.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gmail.ivan.synopsis.R;
@@ -26,6 +24,8 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
 
     private static final String THESIS_ID = "thesis_id";
 
+    private static final String IS_NEW_THESIS = "is_thesis_new";
+
     @Nullable
     private TextView thesisTitle;
 
@@ -37,6 +37,21 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
 
     @Nullable
     private Thesis thesis;
+
+    private boolean newThesis;
+
+    private boolean onCreateCalled;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        newThesis = Objects.requireNonNull(getArguments())
+                           .getBoolean(IS_NEW_THESIS);
+        onCreateCalled = true;
+
+        Log.d("OLOLO", "onCreate: ");
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -53,11 +68,19 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         getPresenter().loadThesis(Objects.requireNonNull(getArguments())
                                          .getInt(THESIS_ID));
+
+        Log.d("OLOLO", "onResume: " + onCreateCalled);
+        if (newThesis && onCreateCalled) {
+            onCreateCalled = false;
+            Objects.requireNonNull(thesis)
+                   .setNewThesis(true);
+            getPresenter().showEditThesis(thesis);
+        }
     }
 
     @Override
@@ -85,10 +108,11 @@ public class ThesisDetailsFragment extends BaseFragment<ThesisDetailsPresenter>
         return presenter;
     }
 
-    public static ThesisDetailsFragment newInstance(int thesisId) {
+    public static ThesisDetailsFragment newInstance(int thesisId, boolean newThesis) {
 
         Bundle args = new Bundle();
         args.putInt(THESIS_ID, thesisId);
+        args.putBoolean(IS_NEW_THESIS, newThesis);
 
         ThesisDetailsFragment fragment = new ThesisDetailsFragment();
         fragment.setArguments(args);

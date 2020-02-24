@@ -56,19 +56,23 @@ public class ThesisEditActivity extends BaseActivity<ThesisEditPresenter>
 
         saveEditFab = findViewById(R.id.save_edit_fab);
         saveEditFab.setOnClickListener(view -> {
-            Objects.requireNonNull(thesis)
-                   .setThesisName(Objects.requireNonNull(thesisTitle)
-                                         .getText()
-                                         .toString());
-
-            Objects.requireNonNull(thesis)
-                   .setThesisDescription(Objects.requireNonNull(thesisDescription)
-                                                .getText()
-                                                .toString());
-
-            getPresenter().saveThesis(thesis);
-            getPresenter().back(Objects.requireNonNull(thesis));
+            saveAndQuit();
         });
+    }
+
+    private void saveAndQuit() {
+        Objects.requireNonNull(thesis)
+               .setThesisName(Objects.requireNonNull(thesisTitle)
+                                     .getText()
+                                     .toString());
+
+        Objects.requireNonNull(thesis)
+               .setThesisDescription(Objects.requireNonNull(thesisDescription)
+                                            .getText()
+                                            .toString());
+
+        getPresenter().saveThesis(thesis);
+        finish();
     }
 
     @Override
@@ -86,17 +90,12 @@ public class ThesisEditActivity extends BaseActivity<ThesisEditPresenter>
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        getPresenter().saveThesis(Objects.requireNonNull(thesis));
-        getPresenter().back(Objects.requireNonNull(thesis));
+        saveAndQuit();
     }
 
     @Override
     public void showThesis(@NonNull Thesis thesis) {
         this.thesis = thesis;
-        Log.d("OLOLO", "showThesis: " + thesis.getThesisName());
-        Log.d("OLOLO", "showThesis: " + (thesisTitle == null));
         Objects.requireNonNull(thesisTitle)
                .setText(thesis.getThesisName());
         Objects.requireNonNull(thesisDescription)

@@ -62,6 +62,11 @@ public class ThesisPagerActivity extends BaseActivity<ThesisPagerPresenter>
                .setEntityList(thesisList);
         int thesisId = getIntent().getIntExtra(THESIS_ID, 0);
 
+        if(thesisId == 0){
+            Thesis thesis = thesisList.get(thesisList.size() - 1);
+            thesis.setNewThesis(true);
+            thesisId = thesis.getId();
+        }
         for (int i = 0; i < thesisList.size(); i++) {
             if (thesisList.get(i)
                           .getId() == (thesisId)) {

@@ -15,6 +15,6 @@ public class ThesisPagerAdapter extends BasePagerAdaper<Thesis> {
 
     @Override
     protected BaseFragment createFragment(@NonNull Thesis entity) {
-        return ThesisDetailsFragment.newInstance(entity.getId());
+        return ThesisDetailsFragment.newInstance(entity.getId(), entity.isNewThesis());
     }
 }
